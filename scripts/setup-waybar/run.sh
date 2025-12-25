@@ -9,6 +9,10 @@ sudo pacman -Syu --noconfirm waybar
 echo "Installing fonts..."
 sudo pacman -S --noconfirm noto-fonts-emoji ttf-nerd-fonts-symbols
 
+# ---------- 1a. Install ydotool ----------
+echo "Installing ydotool..."
+sudo pacman -S --noconfirm ydotool
+
 # ---------- 2. Create config folders ----------
 CONFIG_DIR="$HOME/.config/waybar"
 mkdir -p "$CONFIG_DIR"
@@ -56,6 +60,10 @@ color: #d4af37;
 }
 EOF
 
+# ---------- 3a. Run import script ----------
+DIR="$(dirname "$0")"
+"$DIR/import.sh"
+
 # ---------- 4. Autostart Waybar ----------
 AUTOSTART="$HOME/.config/hypr/hyprland.conf"
 
@@ -64,4 +72,6 @@ if ! grep -q "exec waybar" "$AUTOSTART"; then
     echo "exec-once = waybar" >> "$AUTOSTART"
 fi
 
-echo "Waybar installed with basic Minecraft theme! You can run it now with 'waybar &'"
+echo "Waybar installed with basic Minecraft theme!"
+echo "Icons and scripts copied, ydotool installed!"
+echo "You can run Waybar now with 'waybar &'"
