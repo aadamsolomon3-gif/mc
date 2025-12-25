@@ -9,6 +9,8 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+./import.sh
+
 echo "=== HyprPM Setup Script ==="
 
 # 1. Check if hyprpm is installed

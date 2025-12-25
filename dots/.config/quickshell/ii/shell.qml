@@ -64,7 +64,7 @@ ShellRoot {
     // Load enabled stuff
     // Well, these loaders only *allow* them to be loaded, to always load or not is defined in each component
     // The media controls for example is not loaded if it's not opened
-    PanelLoader { identifier: "iiBar"; extraCondition: !Config.options.bar.vertical; component: Bar {} }
+    //PanelLoader { identifier: "iiBar"; extraCondition: !Config.options.bar.vertical; component: Bar {} }
     PanelLoader { identifier: "iiBackground"; component: Background {} }
     PanelLoader { identifier: "iiCheatsheet"; component: Cheatsheet {} }
     PanelLoader { identifier: "iiDock"; extraCondition: Config.options.dock.enable; component: Dock {} }

@@ -62,6 +62,21 @@ Scope {
             sourceComponent: SidebarRightContent {}
         }
 
+        BorderImage {
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 5 // remove extra spacing
+            source: "/home/aadam/.config/quickshell/ii/assets/borders/gui.png"
+            border {
+                left: 8
+                top: 8
+                right: 8
+                bottom: 8
+            }
+            smooth: false
+        }
 
     }
 

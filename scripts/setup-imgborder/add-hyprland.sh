@@ -39,7 +39,7 @@ plugin {
 	        enabled = true
 	        image = ~/.config/hypr/assets/imgborder/gui.png
 	        sizes = 6, 6, 6, 6
-	        insets = 2, 2, 2, 2
+	        insets = 2, 2, 1, 1
 	        scale = 2.5
 	        smooth = false
 	        blur = false
