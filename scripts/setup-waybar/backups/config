@@ -1,0 +1,65 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 45,
+    "margin-bottom": 10,
+    "spacing": 0,
+
+    // --- LEFT BAR ---
+    "modules-left": [
+        "hyprland/window",
+        "cpu",
+        "memory",
+        "custom/gpu",
+        "mpris"
+    ],
+
+    // --- CENTER BAR (The Inventory) ---
+    "modules-center": [
+        "hyprland/workspaces"
+    ],
+
+    // --- RIGHT BAR ---
+    "modules-right": [
+        "custom/record",
+        "custom/snip",
+        "custom/notifications",
+        "clock"
+    ],
+
+    // --- MODULE CONFIGS ---
+
+    "hyprland/workspaces": {
+        "format": " ", // Empty so we see the icon only
+        "persistent-workspaces": { "*": 9 }
+    },
+
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 25,
+        "separate-outputs": true
+    },
+
+    "cpu": { "format": "CPU {usage}%", "interval": 2 },
+    "memory": { "format": "RAM {percentage}%", "interval": 2 },
+
+    "custom/gpu": {
+    "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+    "format": "GPU {}%",
+    "interval": 2
+    },
+
+    "mpris": { "format": "♪ {title}", "max-length": 15 },
+
+    "clock": {
+        "format": "{:%H:%M}",
+        "tooltip-format": "{:%Y-%m-%d}"
+    },
+
+    "custom/record": { "format": "REC", "on-click": "exec wf-recorder" },
+    "custom/snip": { "format": "SNIP", "on-click": "grim -g \"$(slurp)\" - | wl-copy" },
+    "custom/notifications": {
+        "format": "NOTIF",
+        "on-click": "./.config/waybar/scripts/toggle-sidebar.sh"
+    }
+}

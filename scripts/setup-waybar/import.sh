@@ -19,6 +19,14 @@ else
     echo "No 'transparent-icons' folder found in current directory"
 fi
 
+# Copy the 'transparent-icons' folder
+if [ -d ./hotbar]; then
+    cp -r ./hotbar ~/.config/waybar/
+    echo "hotbar copied to ~/.config/waybar/hotbar"
+else
+    echo "No 'hotbar' folder found in current directory"
+fi
+
 # Copy the 'scripts' folder
 if [ -d ./scripts ]; then
     cp -r ./scripts ~/.config/waybar/
