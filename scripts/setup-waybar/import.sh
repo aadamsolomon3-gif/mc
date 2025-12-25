@@ -11,6 +11,14 @@ else
     echo "No 'icons' folder found in current directory"
 fi
 
+# Copy the 'transparent-icons' folder
+if [ -d ./transparent-icons ]; then
+    cp -r ./transparent-icons ~/.config/waybar/
+    echo "Transparent icons copied to ~/.config/waybar/transparent-icons"
+else
+    echo "No 'transparent-icons' folder found in current directory"
+fi
+
 # Copy the 'scripts' folder
 if [ -d ./scripts ]; then
     cp -r ./scripts ~/.config/waybar/
