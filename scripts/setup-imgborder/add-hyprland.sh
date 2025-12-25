@@ -38,9 +38,9 @@ plugin {
         imgborders {
 	        enabled = true
 	        image = ~/.config/hypr/assets/imgborder/gui.png
-	        sizes = 8, 8, 8, 8
-	        insets = 0, 0, 0, 0
-	        scale = 2
+	        sizes = 6, 6, 6, 6
+	        insets = 2, 2, 2, 2
+	        scale = 2.5
 	        smooth = false
 	        blur = false
         }
