@@ -1,19 +1,5 @@
 #!/bin/bash
 
-# Check if the script is already in /usr/local/bin
-if [[ $(dirname "$(realpath "$0")") != "/usr/local/bin" ]]; then
-    echo "Do you want to move this script to /usr/local/bin for easy access? (y/n)"
-    read -r response
-    if [[ "$response" =~ ^[Yy]$ ]]; then
-        # Move the script to /usr/local/bin with sudo permissions
-        script_name=$(basename "$0")
-        sudo cp "$0" /usr/local/bin/"$script_name"
-        sudo chmod +x /usr/local/bin/"$script_name"
-        echo "Script moved to /usr/local/bin. You can now run it from anywhere using the command: $script_name"
-        exit 0
-    fi
-fi
-
 echo "Starting system cleanup on Arch Linux..."
 
 # Display initial disk usage
