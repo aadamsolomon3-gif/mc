@@ -14,6 +14,7 @@ declare -A apps=(
     [5]="Discord - discord/install-discord.sh"
     [6]="Kate - kate/install-kate.sh"
     [7]="Firewall - firewall/install-firewall.sh"
+    [8]="Ventoy - ventoy/install-ventoy.sh"
 )
 
 # Show options
