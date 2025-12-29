@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -e
+
+echo "Killing existing apps..."
+pkill -f firefox || true
+pkill -f dolphin || true
+pkill -f kitty || true
+pkill -f spotify || true
+sleep 1
+
+# -----------------------------
+# Helper function to launch and move apps
+# -----------------------------
+launch_and_move() {
+    cmd="$1"      # command to run
+    class="$2"    # window class, exactly as shown in hyprctl clients -j
+    ws="$3"       # workspace number
+
+    $cmd &
+
+    # Wait until window appears
+    while true; do
+        win_id=$(hyprctl clients -j | jq -r ".[] | select(.class==\"$class\") | .id" | head -n1)
+        if [[ -n "$win_id" ]]; then
+            break
+        fi
+        sleep 0.2
+    done
+
+    hyprctl dispatch movetoworkspace "$ws,$win_id"
+}
+
+# -----------------------------
+# Workspace 1: Dolphin + Firefox + Kitty
+# -----------------------------
+#launch_and_move "dolphin" "Dolphin" 1
+launch_and_move "firefox" "Firefox" 1
+launch_and_move "kitty" "kitty" 1
+
+# -----------------------------
+# Workspace 2: Dolphin + Dolphin + Firefox
+# -----------------------------
+#launch_and_move "dolphin" "Dolphin" 2
+#launch_and_move "dolphin" "Dolphin" 2
+launch_and_move "firefox" "Firefox" 2
+
+# -----------------------------
+# Workspace 3: Firefox
+# -----------------------------
+launch_and_move "firefox" "Firefox" 3
+
+# -----------------------------
+# Workspace 4: Spotify
+# -----------------------------
+launch_and_move "spotify" "Spotify" 4
+
+# -----------------------------
+# Return to workspace 1
+# -----------------------------
+hyprctl dispatch workspace 1
+
+echo "✅ Workspace setup complete."

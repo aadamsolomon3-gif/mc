@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -e
+
+# Detect the folder this script is in
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SELF="$(basename "$0")"
+
+if [[ ! -d "$SCRIPT_DIR" ]]; then
+    echo "Error: $SCRIPT_DIR does not exist."
+    exit 1
+fi
+
+echo "Renaming *.sh scripts (excluding this script)..."
+
+for file in "$SCRIPT_DIR"/*.sh; do
+    [ -e "$file" ] || continue
+
+    base="$(basename "$file")"
+
+    # Skip this script itself
+    if [[ "$base" == "$SELF" ]]; then
+        continue
+    fi
+
+    new="${file%.sh}"
+
+    # Skip if target already exists
+    if [[ -e "$new" ]]; then
+        echo "Skipping $base → $(basename "$new") (already exists)"
+        continue
+    fi
+
+    mv "$file" "$new"
+    echo "Renamed: $base → $(basename "$new")"
+done
+
+echo "Making all scripts executable..."
+chmod +x "$SCRIPT_DIR"/*
+
+# Fish config file
+FISH_CONFIG="$HOME/.config/fish/config.fish"
+
+# Ensure config.fish exists
+mkdir -p "$(dirname "$FISH_CONFIG")"
+touch "$FISH_CONFIG"
+
+# Add folder to Fish PATH if not already there
+if ! grep -qF "$SCRIPT_DIR" "$FISH_CONFIG"; then
+    echo ""
+    echo "Adding $SCRIPT_DIR to Fish PATH..."
+    {
+        echo ""
+        echo "# Added by interactive-scripts setup"
+        echo "set -gx PATH $SCRIPT_DIR \$PATH"
+    } >> "$FISH_CONFIG"
+    echo "Folder added to Fish PATH permanently."
+else
+    echo "$SCRIPT_DIR is already in Fish PATH."
+fi
+
+echo
+echo "All scripts are renamed, executable, and available as commands."
+echo "➡ Open a new Fish shell or run:"
+echo "   source ~/.config/fish/config.fish"

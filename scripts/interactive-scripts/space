@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Directory this script lives in
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Presets folder relative to this script
+PRESET_DIR="$SCRIPT_DIR/presets"
+
+choose() {
+  if command -v rofi >/dev/null; then
+    rofi -dmenu -p "Workspace Preset"
+  elif command -v fzf >/dev/null; then
+    fzf --prompt="Workspace Preset: "
+  else
+    echo "Available presets:"
+    select opt; do
+      echo "$opt"
+      break
+    done
+  fi
+}
+
+SCRIPT=$(ls "$PRESET_DIR" 2>/dev/null \
+  | xargs -n1 basename \
+  | choose)
+
+[ -z "$SCRIPT" ] && exit 0
+
+bash "$PRESET_DIR/$SCRIPT"
